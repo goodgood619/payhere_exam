@@ -7,6 +7,8 @@ plugins {
 	kotlin("jvm") version "1.9.22"
 	kotlin("plugin.spring") version "1.9.22"
 	kotlin("plugin.jpa") version "1.9.22"
+	kotlin("kapt") version "1.6.21"
+	idea
 }
 
 group = "com.payhere"
@@ -29,8 +31,22 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
+
+	implementation("io.jsonwebtoken:jjwt:0.9.1")
+
+	implementation("javax.xml.bind:jaxb-api:2.4.0-b180830.0359")
+
+	val querydslVersion = "5.0.0"
+	implementation("com.querydsl:querydsl-jpa:${querydslVersion}:jakarta")
+	kapt("com.querydsl:querydsl-apt:${querydslVersion}:jakarta")
+
+	implementation("com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.0")
+	implementation("org.springframework.boot:spring-boot-starter-validation")
+	implementation("jakarta.validation:jakarta.validation-api")
+
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	developmentOnly("org.springframework.boot:spring-boot-docker-compose")
+
 	runtimeOnly("com.mysql:mysql-connector-j")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc")
@@ -46,6 +62,14 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+}
+
+idea {
+	module {
+		val kaptMain = file("build/generated/source/kapt/main")
+		sourceDirs.add(kaptMain)
+		generatedSourceDirs.add(kaptMain)
+	}
 }
 
 val snippetsDir by extra { file("build/generated-snippets") }
