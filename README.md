@@ -1,4 +1,4 @@
-### 구현 방향
+### 구현 방향 (회원 가입, 로그인, 로그아웃)
 
 ---
 
@@ -8,3 +8,21 @@
 * 회원 가입과 로그인을 할 경우는, permit을 해서 SecurityContextHoler를 가지고 있지 않아도 되게 설정
 * 로그인을 하면, DB 해당 record에 발급한 JWT token로 업데이트
 * 반대로, 로그아웃을 하면 DB 해당 record에 token을 빈공백으로 update
+
+### 구현 방향 (상품)
+
+---
+
+* 상품의 부분 수정은 client에서 data를 입력받는 경우만 처리 하므로
+* 모든 필드들을 nullable 하게 허용하고, 실제로 data가 있는 케이스만 update
+
+
+### 문제 해결
+
+---
+
+* Mac M1 Docker Setting
+  * https://velog.io/@sujeongim/%EC%98%A4%EB%A5%98-%EC%B2%9C%EA%B5%AD-Docker%ED%8E%B8-Mac-M1-no-matching-manifest-for-linuxarm64v8
+* mysql UTF8 설정
+  * https://m.blog.naver.com/PostView.naver?blogId=playhoos&logNo=221509276474&proxyReferer=
+  * 

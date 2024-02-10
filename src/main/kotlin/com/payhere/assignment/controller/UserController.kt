@@ -8,7 +8,7 @@ import com.payhere.assignment.domain.response.GeneralResponse
 import com.payhere.assignment.domain.response.LoginResponse
 import com.payhere.assignment.service.UserService
 import jakarta.servlet.http.HttpServletRequest
-import jakarta.validation.Valid
+import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
@@ -31,7 +31,7 @@ class UserController(
         return GeneralResponse(meta = GeneralDetailResponse(), data = loginResponse)
     }
 
-    @PostMapping("/user/logout")
+    @GetMapping("/user/logout")
     fun logout(httpServletRequest: HttpServletRequest): GeneralResponse<Any> {
         val accessToken = jwtTokenProvider.getAccessToken(request = httpServletRequest)
         userService.logout(accessToken)

@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus
 enum class ErrorCode(val status: HttpStatus, val message: String) {
     WRONG_PRODUCT_SIZE(HttpStatus.BAD_REQUEST, "잘못된 상품 사이즈 입니다."),
     INVALID_PARAMETER(HttpStatus.BAD_REQUEST, "잘못된 파라미터 입니다."),
+    NOT_FOUND_PRODUCT(HttpStatus.BAD_REQUEST, "상품을 찾을 수 없습니다."),
     INVALID_TOKEN(HttpStatus.UNAUTHORIZED, "사용할 수 없는 토큰입니다."),
     REMITTANCE_EXPIRED(HttpStatus.BAD_REQUEST, "견적서가 만료 되었습니다."),
     EXCEED_TRANSFER_AMOUNT(HttpStatus.BAD_REQUEST, "오늘 송금 한도 초과 입니다."),
