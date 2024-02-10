@@ -1,13 +1,16 @@
 package com.payhere.assignment.service
 
+import com.payhere.assignment.common.pageSize
 import com.payhere.assignment.domain.entity.Product
 import com.payhere.assignment.domain.request.ProductRegisterRequest
 import com.payhere.assignment.domain.request.ProductUpdateRequest
 import com.payhere.assignment.domain.response.ProductDetailResponse
 import com.payhere.assignment.domain.response.ProductRegisterResponse
+import com.payhere.assignment.domain.response.ProductResponse
 import com.payhere.assignment.exception.CustomException
 import com.payhere.assignment.exception.ErrorCode
 import com.payhere.assignment.repository.ProductRepository
+import com.payhere.assignment.util.getChosungPattern
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -15,6 +18,12 @@ import org.springframework.transaction.annotation.Transactional
 class ProductService(
     private val productRepository: ProductRepository,
 ) {
+
+    fun getList(id: Long?, name: String): List<ProductResponse> {
+        val productList = productRepository.findAllByCondition(productId = id, name = name, pageSize = pageSize)
+
+        return ProductResponse.convertToProductResponse(productList)
+    }
 
     fun getDetail(id: Long): ProductDetailResponse {
 
@@ -32,6 +41,7 @@ class ProductService(
                 price = productRegisterRequest.price,
                 originalPrice = productRegisterRequest.originalPrice,
                 name = productRegisterRequest.name,
+                nameChosung = getChosungPattern(productRegisterRequest.name),
                 description = productRegisterRequest.description,
                 barCode = productRegisterRequest.barCode,
                 expirationDate = productRegisterRequest.expirationDate,
@@ -63,6 +73,7 @@ class ProductService(
             product.category = productUpdateRequest.category ?: product.category
             product.barCode = productUpdateRequest.barCode ?: product.barCode
             product.name = productUpdateRequest.name ?: product.name
+            product.nameChosung = getChosungPattern(productUpdateRequest.name ?: product.name)
             product.description = productUpdateRequest.description ?: product.description
             product.expirationDate = productUpdateRequest.expirationDate ?: product.expirationDate
             product.originalPrice = productUpdateRequest.originalPrice ?: product.originalPrice

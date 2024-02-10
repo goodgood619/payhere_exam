@@ -17,6 +17,7 @@ class Product(
     var price: BigDecimal,
     var originalPrice: BigDecimal,
     var name: String,
+    var nameChosung: String,
     var description: String,
     var barCode: String,
     var expirationDate: LocalDateTime,

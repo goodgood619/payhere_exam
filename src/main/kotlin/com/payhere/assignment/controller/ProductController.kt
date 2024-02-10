@@ -1,28 +1,24 @@
 package com.payhere.assignment.controller
 
-import com.payhere.assignment.domain.request.LoginRequest
-import com.payhere.assignment.domain.request.ProductRegisterRequest
-import com.payhere.assignment.domain.request.ProductUpdateRequest
-import com.payhere.assignment.domain.request.SignUpRequest
+import com.payhere.assignment.domain.request.*
 import com.payhere.assignment.domain.response.GeneralDetailResponse
 import com.payhere.assignment.domain.response.GeneralResponse
 import com.payhere.assignment.domain.response.LoginResponse
 import com.payhere.assignment.domain.response.ProductRegisterResponse
 import com.payhere.assignment.service.ProductService
 import org.springframework.data.jpa.domain.AbstractPersistable_.id
-import org.springframework.web.bind.annotation.DeleteMapping
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PatchMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.PutMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 class ProductController(
     private val productService: ProductService,
 ) {
+
+    @GetMapping("/product")
+    fun getList(@RequestParam(required = true) id: Long, @RequestParam(required = true) name: String ): GeneralResponse<Any> {
+        val productResponseList = productService.getList(id, name)
+        return GeneralResponse(meta = GeneralDetailResponse(), data = productResponseList)
+    }
 
     @GetMapping("/product/{id}")
     fun getDetail(@PathVariable id: Long) : GeneralResponse<Any> {
