@@ -25,7 +25,7 @@ class UserService(
 
     @Transactional
     fun signIn(signUpRequest: SignUpRequest) {
-        val existUser = userRepository.findById(signUpRequest.userId)
+        val existUser = userRepository.findById(encrypt(signUpRequest.userId, aesKey))
         if (existUser.isPresent) {
             throw CustomException(ErrorCode.INVALID_PARAMETER)
         }

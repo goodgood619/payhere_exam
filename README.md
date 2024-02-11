@@ -26,4 +26,6 @@
   * https://velog.io/@sujeongim/%EC%98%A4%EB%A5%98-%EC%B2%9C%EA%B5%AD-Docker%ED%8E%B8-Mac-M1-no-matching-manifest-for-linuxarm64v8
 * mysql UTF8 설정
   * https://m.blog.naver.com/PostView.naver?blogId=playhoos&logNo=221509276474&proxyReferer=
+* cursor-based-pagination 서치
+  * https://jojoldu.tistory.com/528
   * 

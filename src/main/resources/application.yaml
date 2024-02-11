@@ -21,3 +21,19 @@ jwt:
 
 aes:
   key: 12345678901234566543210987654321
+
+---
+spring:
+  config:
+    activate:
+      on-profile: test
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb;MODE=MySQL
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+
+
