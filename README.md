@@ -28,4 +28,32 @@
   * https://m.blog.naver.com/PostView.naver?blogId=playhoos&logNo=221509276474&proxyReferer=
 * cursor-based-pagination 서치
   * https://jojoldu.tistory.com/528
-  * 
+
+### DDL 작성
+
+---
+
+```mysql
+     create table product (
+         original_price decimal(38,2),
+         price decimal(38,2),
+         expiration_date datetime(6),
+         id bigint not null auto_increment,
+         bar_code varchar(255),
+         category varchar(255),
+         description varchar(255),
+         name varchar(255),
+         name_chosung varchar(255),
+         size enum ('SMALL','LARGE'),
+         primary key (id)
+     ) engine=InnoDB;
+ 
+     create table users (
+         created_at datetime(6),
+         updated_at datetime(6),
+         id varchar(255) not null,
+         token varchar(255), # access_token 저장용
+         user_password varchar(255),
+         primary key (id)
+   ) engine=InnoDB;
+```
