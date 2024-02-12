@@ -6,6 +6,6 @@ COPY build.gradle.kts .
 COPY settings.gradle.kts .
 COPY src src
 RUN chmod +x ./gradlew
-RUN ./gradlew bootJar
+RUN ./gradlew clean build --info
 COPY build/libs/*.jar app.jar
 ENTRYPOINT ["java","-jar","app.jar"]

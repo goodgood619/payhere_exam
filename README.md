@@ -57,3 +57,113 @@
          primary key (id)
    ) engine=InnoDB;
 ```
+
+### 실행 방법
+
+---
+
+* 사전 세팅 사항 : docker-compose를 깔아 주세요
+* Dockerfile이 있는 디렉토리에서 다음의 명령어를 실행해 주세요
+```shell
+docker-compose up -d
+```
+
+### 구현 API
+
+---
+
+```text
+
+## 회원 등록
+
+- POST /user/signup
+    
+    RequestBody : {
+        "userId" : "010-1234-1234",
+        "password" : "password"
+    }
+
+## 로그인
+
+- POST /user/login
+    RequestBody : {
+        "userId" : "010-1234-1234",
+        "password" : "password"
+    }
+
+## 로그 아웃
+
+- GET /user/logout
+    Headers : {
+        "Authorization" : "로그인 후 발행 받은 JWT Token"
+    }
+
+## 상품 등록
+
+- POST /product/register
+    Headers : {
+        "Authorization" : "로그인 후 발행 받은 JWT Token"
+    }
+    RequestBody : {
+      "category": "커피",
+      "price" : "1000",
+      "originalPrice" : "8000",
+      "name": "슈크림 라떼",
+      "description" : "맛있음",
+      "barCode" : "barCode12341234",
+      "expirationDate" : "2024-02-10 16:45:30",
+      "size" : "SMALL"
+    }
+
+## 상품 수정
+
+- PATCH /product/modify/{id}
+    - id : product의 Id
+    Headers : {
+        "Authorization" : "로그인 후 발행 받은 JWT Token"
+    }
+    RequestBody : {
+      "price" : "5000",
+      "description" : "저렴해짐",
+      "expirationDate" : "2024-02-11 01:45:30"
+    }
+
+## 상품 삭제
+
+- DELETE /product/delete/{id}
+    - id : product의 id
+    Headers : {
+        "Authorization" : "로그인 후 발행 받은 JWT Token"
+    }
+
+## 상품 검색
+- GET /product?id=number&name=string
+    - id : pagination 하기 위한 마지막 id (ex) 10)
+    - name : product entity의 name을 가리킴 (ex) 슈크림, 라떼, ㅅㅋㄹ, ㄹㄸ)
+   Headers : {
+        "Authorization" : "로그인 후 발행 받은 JWT Token"
+    }
+    
+
+## 상품 상세 검색
+
+- GET /product/{id}
+    - id : product의 id
+    Headers : {
+        "Authorization" : "로그인 후 발행 받은 JWT Token"
+    }
+
+## 공통 응답 코드
+
+{
+   "meta":{
+       "code": 200, 
+       "message":"ok" 
+	}, 
+	"data":{
+       "products":[...]
+	}
+}
+
+- 비고 : data가 null일 경우 전달하지 않음
+```
